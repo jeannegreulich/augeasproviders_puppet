@@ -30,22 +30,32 @@ group :test do
   end
 end
 
-group :development do
-  gem "travis"
-  gem "travis-lint"
-  gem "travish"
-  gem "puppet-blacksmith"
-  gem "guard-rake"
-  gem 'pry'
-  gem 'pry-doc'
+group :development, :unit_tests do
+  gem 'rake', ' < 11.0',                                   :require => false if RUBY_VERSION =~ /^1\.8/
+  gem 'rspec', '< 3.2',                                    :require => false if RUBY_VERSION =~ /^1\.8/
+  gem 'json', '< 2.0',                                     :require => false if RUBY_VERSION =~ /^1\.[89]/
+  gem 'json_pure', '< 2.0',                                :require => false if RUBY_VERSION =~ /^1\.[89]/
+  gem 'rspec-puppet',                                      :require => false
+  gem 'puppetlabs_spec_helper',                            :require => false
+  gem 'metadata-json-lint',                                :require => false
+  gem 'puppet-lint',                                       :require => false
+  gem 'puppet-lint-unquoted_string-check',                 :require => false
+  gem 'puppet-lint-empty_string-check',                    :require => false
+  gem 'puppet-lint-spaceship_operator_without_tag-check',  :require => false
+  gem 'puppet-lint-variable_contains_upcase',              :require => false
+  gem 'puppet-lint-absolute_classname-check',              :require => false
+  gem 'puppet-lint-undef_in_function-check',               :require => false
+  gem 'puppet-lint-leading_zero-check',                    :require => false
+  gem 'puppet-lint-trailing_comma-check',                  :require => false
+  gem 'puppet-lint-file_ensure-check',                     :require => false
+  gem 'puppet-lint-version_comparison-check',              :require => false
+  gem 'rspec-puppet-facts',                                :require => false
 
-  # `listen` is a dependency of `guard`
-  # from `listen` 3.1+, `ruby_dep` requires Ruby version >= 2.2.3, ~> 2.2
-  gem 'listen', '~> 3.0.6'
-end
+  gem 'coveralls',                                         :require => false unless RUBY_VERSION =~ /^1\.8/
+  gem 'simplecov', '~> 0.7.0',                             :require => false
+  gem 'yard',                                              :require => false
+  gem 'redcarpet', '~> 2.0',                               :require => false
 
-group :system_tests do
-  gem 'beaker'
-  gem 'beaker-rspec'
-  gem 'simp-beaker-helpers', '>= 1.0.5'
+  # mime-types-data requires Ruby version >= 2.0
+  gem 'mime-types', '2.6.2' if RUBY_VERSION =~ /^1\.9/
 end
